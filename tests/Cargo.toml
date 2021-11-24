@@ -1,0 +1,18 @@
+[package]
+name = "tests"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+casper-contract = "=1.4.1"
+casper-types = "=1.4.1"
+casper-engine-test-support = "=1.4.1"
+
+[lib]
+name = "lib"
+path = "src/lib.rs"
+bench = false
+doctest = false
+
+[features]
+default = ["casper-contract/std", "casper-types/std", "casper-engine-test-support/test-support", "casper-contract/test-support"]

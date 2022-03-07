@@ -5,7 +5,7 @@ extern crate alloc;
 
 use alloc::boxed::Box;
 use alloc::string::String;
-use alloc::vec;
+use alloc::{format, vec};
 use alloc::{string::ToString, vec::Vec};
 use casper_contract::contract_api::runtime::call_versioned_contract;
 use casper_contract::contract_api::storage::{dictionary_get, dictionary_put};
@@ -98,19 +98,21 @@ pub extern "C" fn call() {
         EntryPointType::Contract,
     ));
 
+    let proxy_name: String = runtime::get_named_arg("name");
+
     let mut named_keys = NamedKeys::new();
     named_keys.insert(
-        "kyc-proxy_contract_package".to_string(),
+        format!("{}-proxy_contract_package", proxy_name),
         storage::new_uref(contract_package_hash).into(),
     );
     let (contract_hash, _) =
         storage::add_contract_version(contract_package_hash, entry_points, named_keys);
-
-    runtime::put_key("kyc-proxy_contract", contract_hash.into());
-    runtime::put_key("kyc-proxy_access_token", access_uref.into());
-    // Added for the testing convinience.
+    runtime::put_key(&format!("{}-proxy_package_hash", proxy_name), contract_package_hash.into());
+    runtime::put_key(&format!("{}-proxy_contract", proxy_name), contract_hash.into());
+    runtime::put_key(&format!("{}-proxy_access_token", proxy_name), access_uref.into());
+    // // Added for the testing convenience.
     runtime::put_key(
-        "kyc-proxy_contract_hash",
+        &format!("{}-proxy_contract_hash", proxy_name),
         storage::new_uref(contract_hash).into(),
     );
 

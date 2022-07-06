@@ -1,5 +1,5 @@
 prepare:
-	rustup default nightly
+	rustup default nightly-2022-05-19
 	rustup target add wasm32-unknown-unknown
 
 rust-test-only:

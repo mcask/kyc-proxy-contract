@@ -2,6 +2,7 @@
 
 members = [
     "contract",
+    "synth-contract",
     "tests"
 ]
 

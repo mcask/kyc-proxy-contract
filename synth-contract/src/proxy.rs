@@ -260,7 +260,7 @@ impl ProviderDict {
     }
 
 
-    fn is_allowed(&self, account: Key, index: Option<U256>, amount: U256) -> bool {
+    fn is_allowed(&self, account: Key, index: Option<U256>, amount: U512) -> bool {
         for provider_index in 0..=self.len {
             // check if there is a provider stored at the index
             if let Some(provider_package_hash) =
@@ -288,7 +288,7 @@ impl ProviderDict {
         provider_package_hash: ContractPackageHash,
         account: Key,
         index: Option<U256>,
-        amount: U256,
+        amount: U512,
     ) -> bool {
         call_versioned_contract(
             provider_package_hash,

@@ -23,7 +23,10 @@ lint: clippy format
 
 build-contract:
 	cargo build --release -p kyc-proxy --target wasm32-unknown-unknown
+	cargo build --release -p synth-proxy --target wasm32-unknown-unknown
 	wasm-strip target/wasm32-unknown-unknown/release/kyc-proxy.wasm
+	wasm-strip target/wasm32-unknown-unknown/release/synth-proxy.wasm
+
 
 clean:
 	cargo clean
